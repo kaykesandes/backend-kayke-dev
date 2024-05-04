@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/", router);
-app.listen(5000, () => console.log("Server Running"));
+const port = process.env.PORT || 5000; // Alteração para utilizar a porta configurada pelo ambiente ou a porta 5000 por padrão
 
 const resend = new Resend('re_MvKpK8Bk_Q5cSJ6bYB26ooQC4yyA6UW44');
 
@@ -21,8 +21,8 @@ router.post("/contact", (req, res) => {
   const name = `${firstName} ${lastName}`;
 
   const mail = {
-    from: 'onboarding@resend.dev', // Use o endereço de e-mail do remetente
-    to: "kaykegy@proton.me", // Defina o destinatário correto aqui
+    from: 'onboarding@resend.dev',
+    to: "kaykegy@proton.me",
     subject: "Contact Form Submission - Portfolio",
     html: `<p>Name: ${name}</p>
            <p>Email: ${email}</p>
@@ -40,4 +40,10 @@ router.post("/contact", (req, res) => {
 });
 
 
-module.exports = app
+router.get("/test", (req, res) => {
+  res.send("API is running successfully!");
+});
+
+app.listen(port, () => console.log(`Server Running on port ${port}`));
+
+module.exports = app;
