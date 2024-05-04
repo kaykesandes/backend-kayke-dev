@@ -7,9 +7,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/", router);
-const port = process.env.PORT || 5000; // Alteração para utilizar a porta configurada pelo ambiente ou a porta 5000 por padrão
+const port = process.env.PORT || 5000;
+const stmp = process.env.STMP;
 
-const resend = new Resend('re_MvKpK8Bk_Q5cSJ6bYB26ooQC4yyA6UW44');
+const resend = new Resend(stmp);
 
 router.post("/contact", (req, res) => {
   const firstName = req.body.firstName;
